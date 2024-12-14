@@ -1,0 +1,19 @@
+networks:
+  kwai:
+    external: true
+
+services:
+  scrapper:
+    container_name: scrapper
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 7060:3000
+    volumes:
+      - .:/app
+    environment:
+      NODE_ENV: development
+    command: 'sh -c "[ -d ""/app/node_modules"" ] && npm run dev || npm install && npm run dev"'
+    networks:
+      - kwai
